@@ -5,11 +5,13 @@ from utils.config import ConfigFile
 class Parser():
     def __init__(self, filename):
         self.loadFile(filename)
-    
-    def loadFile(self, filename)
+
+    def loadFile(self, filename):
         # instantiate
         with open(filename, 'r') as stream:
-            config = yaml.safe_load(stream)    
-        self.configurations = ConfigFile(config)
-    
-    
+            config = yaml.safe_load(stream)
+        self.configurations = ConfigFile(config).problem
+
+    def problem(self):
+        return str(self.configurations)
+

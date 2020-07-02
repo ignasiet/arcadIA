@@ -1,6 +1,17 @@
 problem:
   name: labirinth
+  instance: 2
+  types:
+    - name: position
+      variables: 
+        - name: 'x'
+          type: int
+        - name: 'y'
+          type: int
   variables:
+    - name: treasure
+      instantiable: true
+      type: position
     - name: coord_x
       type: int
     - name: coord_y
@@ -9,53 +20,57 @@ problem:
       type: int
     - name: pos_y
       type: int
-    - name: goal_x
-      type: int
-    - name: goal_y
-      type: int
+    - name: goal
+      type: position
     - name: points
       type: int
+  goal:
+    conditions:
+      - operator: '='
+        operators: pos_x, goal_x
+      - operator: '='
+        operators: pos_y, goal_y
   actions:
-    - move_left:
-        affects: pos_x
-        preconditions: 
-          - operation: '>'
-            operators: pos_x,0
-        postconditions: 
-          - operation: '-'
-            operators: pos_x,1
-    - move_right:
-        affects: pos_x
-        preconditions: 
-          - operation: '<'
-            operators: pos_x,coord_x
-        postconditions: 
-          - operation: '+'
-            operators: pos_x,1
-    - move_down:
-        affects: pos_y
-        preconditions: 
-          - operation: '>'
-            operators: pos_y,0
-        postconditions: 
-          - operation: '-'
-            operators: pos_y,1
-    - move_up:
-        affects: pos_y
-        preconditions: 
-          - operation: '<'
-            operators: pos_y,coord_y
-        postconditions: 
-          - operation: '+'
-            operators: pos_y,1
-    - get_treasure:
-        affects: points
-        preconditions: 
-          - operation: '='
-            operators: pos_x,goal_x
-          - operation: '='
-            operators: pos_y,goal_y
-        postconditions: 
-          - operation: '+'
-            operators: points,1
+    - name: move_left
+      affects: pos_x
+      preconditions: 
+        - operation: '>'
+          operators: pos_x,0
+      postconditions: 
+        - operation: '-'
+          operators: pos_x,1
+    - name: move_right
+      affects: pos_x
+      preconditions: 
+        - operation: '<'
+          operators: pos_x,coord_x
+      postconditions: 
+        - operation: '+'
+          operators: pos_x,1
+    - name: move_down
+      affects: pos_y
+      preconditions: 
+        - operation: '>'
+          operators: pos_y,0
+      postconditions: 
+        - operation: '-'
+          operators: pos_y,1
+    - name: move_up
+      affects: pos_y
+      preconditions: 
+        - operation: '<'
+          operators: pos_y,coord_y
+      postconditions: 
+        - operation: '+'
+          operators: pos_y,1
+    - name: get_treasure
+      affects: points
+      preconditions:
+        - operation: '='
+          operators: pos_x,
+        - operation: '='
+          operators: pos_y,goal_y
+      postconditions: 
+        - operation: '+'
+          operators: points,1
 

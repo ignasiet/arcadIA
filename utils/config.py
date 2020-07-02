@@ -1,5 +1,6 @@
 import yaml
 
+
 class ConfigFile():
     def __init__(self, dictionary):
         self.data = dictionary
