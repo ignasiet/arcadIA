@@ -7,5 +7,5 @@ cdef extern from "../src/Action.h" namespace "planner":
         Action() except +
         Action(int, string) except +
         void print()
-        bool checkpreconditions(vector<int> state);
+        bool checkpreconditions(vector);
         State apply(State);
