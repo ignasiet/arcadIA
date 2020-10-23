@@ -1,6 +1,5 @@
 problem:
   name: labirinth
-  instance: 2
   types:
     - name: position
       variables: 
@@ -8,9 +7,15 @@ problem:
           type: int
         - name: 'y'
           type: int
+    - name: teste
+      variables: 
+        - name: 'x'
+          type: int
+        - name: 'y'
+          type: int
   variables:
     - name: treasure
-      instantiable: true
+      instantiable: True
       type: position
     - name: coord_x
       type: int
@@ -22,55 +27,58 @@ problem:
       type: int
     - name: goal
       type: position
-    - name: points
+    - name: treasures_left
       type: int
-  goal:
-    conditions:
-      - operator: '='
-        operators: pos_x, goal_x
-      - operator: '='
-        operators: pos_y, goal_y
   actions:
     - name: move_left
       affects: pos_x
       preconditions: 
-        - operation: '>'
-          operators: pos_x,0
+        - operator: '>'
+          operands: pos_x,0
       postconditions: 
-        - operation: '-'
-          operators: pos_x,1
+        - operator: '-'
+          operands: pos_x,1
     - name: move_right
-      affects: pos_x
+      affects: pos_x, coord_x
       preconditions: 
-        - operation: '<'
-          operators: pos_x,coord_x
+        - operator: '<'
+          operands: pos_x,coord_x
       postconditions: 
-        - operation: '+'
-          operators: pos_x,1
+        - operator: '+'
+          operands: pos_x,1
     - name: move_down
       affects: pos_y
       preconditions: 
-        - operation: '>'
-          operators: pos_y,0
+        - operator: '>'
+          operands: pos_y,0
       postconditions: 
-        - operation: '-'
-          operators: pos_y,1
+        - operator: '-'
+          operands: pos_y,1
     - name: move_up
-      affects: pos_y
+      affects: pos_y,coord_x
       preconditions: 
-        - operation: '<'
-          operators: pos_y,coord_y
+        - operator: '<'
+          operands: pos_y,coord_y
       postconditions: 
-        - operation: '+'
-          operators: pos_y,1
+        - operator: '+'
+          operands: pos_y,1
     - name: get_treasure
-      affects: points
+      instantiable: treasure
+      affects: points, treasures_left
       preconditions:
-        - operation: '='
-          operators: pos_x,
-        - operation: '='
-          operators: pos_y,goal_y
+        - operator: '>'
+          operands: treasure.x,-1
+        - operator: '>'
+          operands: treasure.y,-1
+        - operator: '=='
+          operands: pos_x,treasure.x
+        - operator: '=='
+          operands: pos_y,treasure.y
       postconditions: 
-        - operation: '+'
-          operators: points,1
+        - operator: '-'
+          operands: treasures_left,1
+        - operator: '='
+          operands: treasure.x, -1
+        - operator: '='
+          operands: treasure.y, -1
 

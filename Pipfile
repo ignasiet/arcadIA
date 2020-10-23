@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 cython = "*"
 pyyaml = "*"
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"

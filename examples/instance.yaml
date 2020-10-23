@@ -1,0 +1,27 @@
+instance:
+  name: labirinth
+  size: 2
+  initial:
+    treasure:
+      - instance: 0
+        x: 2
+        y: 1
+      - instance: 1
+        x: 0
+        y: 7
+    coord_x: 10
+    coord_y: 10
+    pos_x: 0
+    pos_y: 0
+    goal:
+      x: 0
+      y: 9
+    treasures_left: 2
+  goal:
+    conditions:
+      - operator: '=='
+        operands: pos_x, goal.x
+      - operator: '=='
+        operands: pos_y, goal.y
+      - operator: '=='
+        operands: treasures_left,0
